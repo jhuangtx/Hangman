@@ -1,0 +1,63 @@
+#importing the time module
+import time
+
+#welcoming the user
+name = input("What is your name? ")
+
+print("Hello, " + name + ".", "Time to play hangman!")
+
+print(" ")
+
+#wait for 1 second
+time.sleep(1)
+
+print("Start guessing...")
+time.sleep(0.5)
+
+#here we set the word in hangman
+word="secret"
+
+#creates a variable with an empty value
+guesses=""
+
+#determine the number of attempts
+attempts = 10
+
+#create a while loop to check if there are anymore attempts left
+while attempts>0:
+
+    #make a counter that starts with zero
+    hidden_letters = 0
+
+    #this prints out how many hidden characters are left
+    for char in word:
+        if char in guesses:
+            print(char)
+        else:
+            print("_")
+            hidden_letters += 1
+
+    #if there are no hidden letters left, you win 
+    if hidden_letters == 0:
+        print("Congratulations, you win!")
+
+        break
+    
+    #allows the user to input their guess
+    guess = input("Guess a character: ")
+
+    #checks to see if the guess is a valid entry or not
+    while (guess.isalpha() == False) or (len(guess)>1) or (guess in guesses):
+        print("Please enter a valid guess!")
+        guess = input("Guess a character: ")
+    guesses += guess
+
+    if guess not in word:
+        attempts -= 1
+
+        print(guess + " is not in the word!")
+
+        print("You have " + str(attempts) + " more guesses")
+
+        if attempts == 0:
+            print("You lose!")
